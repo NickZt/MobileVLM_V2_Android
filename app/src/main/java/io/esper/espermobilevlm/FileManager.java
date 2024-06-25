@@ -2,12 +2,15 @@ package io.esper.espermobilevlm;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+
 
 public class FileManager {
     private Context context;
@@ -25,6 +28,18 @@ public class FileManager {
         return new File(context.getFilesDir(), filename).getAbsolutePath();
     }
 
+    public void copyUriToFile(Uri uri, File destFile) throws IOException {
+        InputStream inputStream = context.getContentResolver().openInputStream(uri);
+        OutputStream outputStream = new FileOutputStream(destFile);
+        byte[] buffer = new byte[4096];
+        int length;
+        while ((length = inputStream.read(buffer)) > 0) {
+            outputStream.write(buffer, 0, length);
+        }
+        outputStream.close();
+        inputStream.close();
+    }
+
     public void copyFileFromAssets(String filename) {
         AssetManager assetManager = context.getAssets();
         File outputFile = new File(context.getFilesDir(), filename);
@@ -40,5 +55,11 @@ public class FileManager {
         } catch (IOException e) {
             Log.e("FileManager", "Error copying file from assets", e);
         }
+    }
+
+    public File createImageFile() throws IOException {
+        String imageFileName = "JPEG_" + System.currentTimeMillis() + "_";
+        File storageDir = context.getExternalFilesDir(null);
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
     }
 }
