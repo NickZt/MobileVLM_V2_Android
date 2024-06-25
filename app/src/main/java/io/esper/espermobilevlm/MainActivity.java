@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private FileManager fileManager;
     private CommandExecutor commandExecutor;
     private File photoFile = null;
+    private String sampleImagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         promptEditText = findViewById(R.id.editText_prompt);
 
         runButton.setOnClickListener(view -> {
+            runButton.setEnabled(false);
             if (checkFilesAndExecute()) {
                 executeShellCommand();
             }
@@ -59,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void displaySampleImage() {
         fileManager.copyFileFromAssets(getString(R.string.sample_jpg_name));
-        String imagePath = fileManager.getFilePath(getString(R.string.sample_jpg_name));
-        imageView.setImageURI(FileProvider.getUriForFile(this, "io.esper.espermobilevlm.fileprovider", new File(imagePath)));
+        sampleImagePath = fileManager.getFilePath(getString(R.string.sample_jpg_name));
+        imageView.setImageURI(FileProvider.getUriForFile(this, "io.esper.espermobilevlm.fileprovider", new File(sampleImagePath)));
     }
 
     private void pickImageFromGallery() {
@@ -115,16 +117,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void executeShellCommand() {
+        String finalPhotoPath = photoFile != null ? photoFile.getAbsolutePath() : sampleImagePath;
         String promptText = promptEditText.getText().toString(); // Get the text from EditText
         String command = "LD_LIBRARY_PATH=" + getApplicationInfo().nativeLibraryDir + " " +
                 getApplicationInfo().nativeLibraryDir + "/llava.so -m " +
                 fileManager.getFilePath(getString(R.string.mobile_vlm_model_file_name))+ " --mmproj " + fileManager.getFilePath(getString(R.string.mm_proj_model_file_name)) +
-                " -t 4 --image " + photoFile.getAbsolutePath() + " " +
+                " -t 4 --image " + finalPhotoPath + " " +
                 "-p \"" + promptText + "\"";
         commandExecutor.executeCommand(command,
                 output -> runOnUiThread(() -> {
                     Log.d("MainActivity", "Output: " + output);
                     outputTextView.append(output + "\n");
+                    findViewById(R.id.button_run).setEnabled(true);
                 }),
                 error -> Log.d("MainActivity", "Error running shell command: " + error));
     }
