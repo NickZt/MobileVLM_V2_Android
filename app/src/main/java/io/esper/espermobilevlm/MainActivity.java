@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,17 +33,19 @@ public class MainActivity extends AppCompatActivity {
 
         runButton.setOnClickListener(view -> {
             if (checkFilesAndExecute()) {
+                // disable button to prevent multiple executions
+                runButton.setEnabled(false);
                 executeShellCommand();
             }
         });
     }
 
     private boolean checkFilesAndExecute() {
-        if (fileManager.checkFile(getString(R.string.mobile_vlm_model_file_name), MODEL_FILE_SIZE) &&
-                fileManager.checkFile(getString(R.string.mm_proj_model_file_name), PROJ_FILE_SIZE)) {
-            return true;
+        if (!fileManager.checkFile(getString(R.string.sample_jpg_name), 0)) {
+            fileManager.copyFileFromAssets(getString(R.string.sample_jpg_name));
         }
-        return false;
+        return fileManager.checkFile(getString(R.string.mobile_vlm_model_file_name), MODEL_FILE_SIZE) &&
+                fileManager.checkFile(getString(R.string.mm_proj_model_file_name), PROJ_FILE_SIZE);
     }
 
     private void executeShellCommand() {
@@ -56,7 +59,12 @@ public class MainActivity extends AppCompatActivity {
                         output -> runOnUiThread(() -> {
                             Log.d("MainActivity", "Output: " + output);
                             outputTextView.append(output + "\n");
+                            // enable button after execution
+                            findViewById(R.id.button_run).setEnabled(true);
                         }),
-                        error -> Log.d("MainActivity", "Error running shell command: " + error));
+
+                        error -> {
+                    Log.d("MainActivity", "Error running shell command: " + error);
+                        });
     }
 }
