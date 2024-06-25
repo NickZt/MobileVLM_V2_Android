@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewModel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Model Download"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <ProgressBar
+        android:id="@+id/progressBarModel"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="0" />
+
+    <TextView
+        android:id="@+id/statusModel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Waiting to download..."
+        android:padding="4dp" />
+
+    <TextView
+        android:id="@+id/textViewProj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Project File Download"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <ProgressBar
+        android:id="@+id/progressBarProj"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="0" />
+
+    <TextView
+        android:id="@+id/statusProj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Waiting to download..."
+        android:padding="4dp" />
+
+    <Button
+        android:id="@+id/buttonProceed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Proceed to Main Activity"
+        android:visibility="gone"/>
+
+</LinearLayout>
