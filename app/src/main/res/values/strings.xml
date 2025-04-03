@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Esper MobileVLM</string>
-    <string name="mm_proj_model_url">https://www.googleapis.com/drive/v3/files/1BOm2cH-u6UHQ8nEah4R5bkTQd7kFASf0?alt=media&amp;key=AIzaSyA8XEJlzWk2X7h5Ze7tPbLIHPz1t7_99wI</string>
-    <string name="mobile_vlm_model_url">https://www.googleapis.com/drive/v3/files/1sXRzqHGworJkcO4onOG3ndCnNd7YeFyW?alt=media&amp;key=AIzaSyA8XEJlzWk2X7h5Ze7tPbLIHPz1t7_99wI</string>
-    <string name="mobile_vlm_model_file_name">MobileVLM_V2-1.7B-2B-Q4_K.gguf</string>
+    <string name="app_name">Test MobileVLM</string>
+    <string name="mm_proj_model_url">https://huggingface.co/ZiangWu/MobileVLM_V2-1.7B-GGUF/resolve/main/mmproj-model-f16.gguf</string>
+    <string name="mobile_vlm_model_url">https://huggingface.co/ZiangWu/MobileVLM_V2-1.7B-GGUF/resolve/main/ggml-model-q4_k.gguf?download=true</string>
+    <string name="mobile_vlm_model_file_name">ggml-model-q4_k.gguf</string>
     <string name="mm_proj_model_file_name">mmproj-model-f16.gguf</string>
     <string name="sample_jpg_name">workcat.jpg</string>
     <string name="run_model">Run Model</string>

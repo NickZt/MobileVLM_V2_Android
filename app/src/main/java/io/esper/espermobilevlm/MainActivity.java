@@ -4,7 +4,6 @@ import static io.esper.espermobilevlm.DownloadActivity.MODEL_FILE_SIZE;
 import static io.esper.espermobilevlm.DownloadActivity.PROJ_FILE_SIZE;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
@@ -130,6 +130,6 @@ public class MainActivity extends AppCompatActivity {
                     outputTextView.append(output + "\n");
                     findViewById(R.id.button_run).setEnabled(true);
                 }),
-                error -> Log.d("MainActivity", "Error running shell command: " + error));
+                error -> Log.d("MainActivity", "shell command: " + error));
     }
 }

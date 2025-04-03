@@ -36,7 +36,7 @@ public class CommandExecutor {
                 Log.d("CommandExecutor", "Shell command exit code: " + exitCode);
 
             } catch (Exception e) {
-                Log.e("CommandExecutor", "Error running shell command: " + e.getMessage());
+                Log.e("CommandExecutor", " shell command: " + e.getMessage());
                 errorHandler.accept("Error running shell command: " + e.getMessage());
             }
         });
